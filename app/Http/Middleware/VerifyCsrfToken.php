@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Support\Facades\Log;
 
 class VerifyCsrfToken extends Middleware
 {
@@ -19,10 +19,19 @@ class VerifyCsrfToken extends Middleware
         'api/midtrans/notification',
     ];
 
+    protected function tokensMatch($request)
+    {
+        $uri = $request->path();
+        Log::info("🔒 Checking CSRF for URI: $uri");
+        return parent::tokensMatch($request);
+    }
+
     public function handle($request, \Closure $next)
     {
-        if ($request->is('midtrans/notification')) {
-            Log::info('✅ Midtrans callback diterima tanpa CSRF');
+        $uri = $request->path();
+        if ($this->inExceptArray($request)) {
+            Log::info("✅ CSRF skipped for URI: $uri");
+            return $next($request);
         }
 
         return parent::handle($request, $next);

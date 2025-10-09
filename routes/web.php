@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MidtransController;
 
 // Midtrans
-Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification');
+// Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification');
 
 // Halaman utama (daftar event) yang bisa diakses publik.
 Route::get('/', EventList::class)->name('events.index');
