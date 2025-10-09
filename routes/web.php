@@ -10,25 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MidtransController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Di sini Anda mendaftarkan semua rute untuk aplikasi web Anda.
-|
-*/
-
 // Midtrans
-// Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification');
-
-Route::post('/midtrans/notification', function (\Illuminate\Http\Request $request) {
-    // Jika rute ini berhasil diakses, kita akan melihat log ini.
-    \Illuminate\Support\Facades\Log::info('RUTE TES BERHASIL DIAKSES!');
-
-    // Dan kita akan mengembalikan respons sukses.
-    return response()->json(['message' => 'Test route accessed successfully!']);
-});
+Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification');
 
 // Halaman utama (daftar event) yang bisa diakses publik.
 Route::get('/', EventList::class)->name('events.index');
