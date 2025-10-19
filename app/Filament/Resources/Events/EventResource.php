@@ -2,17 +2,18 @@
 
 namespace App\Filament\Resources\Events;
 
-use App\Filament\Resources\Events\Pages\CreateEvent;
+use BackedEnum;
+use App\Models\Event;
+use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Resources\Resource;
+use Filament\Support\Icons\Heroicon;
 use App\Filament\Resources\Events\Pages\EditEvent;
 use App\Filament\Resources\Events\Pages\ListEvents;
+use App\Filament\Resources\Events\Pages\CreateEvent;
 use App\Filament\Resources\Events\Schemas\EventForm;
 use App\Filament\Resources\Events\Tables\EventsTable;
-use App\Models\Event;
-use BackedEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
+use App\Filament\Resources\Events\RelationManagers\OrdersRelationManager;
 
 class EventResource extends Resource
 {
@@ -35,7 +36,8 @@ class EventResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // --- TAMBAHKAN RELATION MANAGER ANDA DI SINI ---
+            OrdersRelationManager::class,
         ];
     }
 

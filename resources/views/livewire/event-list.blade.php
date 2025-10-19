@@ -14,6 +14,9 @@
           <p class="text-gray-500 text-sm">{{ $event->starts_at->format('d M Y') }}</p>
           <a href="{{ route('orders.create', $event) }}"
             class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded">Beli Tiket</a>
+
+          <a href="{{ route('events.show', $event) }}"
+            class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded">Lihat Detail</a>
         </div>
       @empty
         <p>Tidak ada event tersedia.</p>

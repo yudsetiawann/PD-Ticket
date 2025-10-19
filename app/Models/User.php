@@ -3,11 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -43,6 +46,32 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            // 'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Helper method untuk mengecek apakah user adalah admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+    /**
+     * Check if the user is a scanner.
+     */
+    public function isScanner(): bool
+    {
+        return $this->role === 'scanner';
+    }
+
+    /**
+     * Metode ini WAJIB ada setelah implementasi FilamentUser.
+     * Filament akan memanggil metode ini untuk menentukan izin akses.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Allow access if the role is 'admin' or 'scanner'
+        return $this->isAdmin() || $this->isScanner();
     }
 }

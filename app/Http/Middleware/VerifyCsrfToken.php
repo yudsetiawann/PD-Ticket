@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         'midtrans/notification',
         '/api/midtrans/notification',
         'api/midtrans/notification',
+        'midtrans/*',
     ];
 
     protected function tokensMatch($request)

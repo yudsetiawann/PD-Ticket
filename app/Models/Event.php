@@ -22,6 +22,12 @@ class Event extends Model implements HasMedia
         'ends_at',
         'thumbnail',
         'user_id',
+
+        // --- TAMBAHKAN SEMUA KOLOM BARU DI SINI ---
+        'description',
+        'location_map_link',
+        'contact_person_name',
+        'contact_person_phone',
     ];
 
     protected $casts = [
@@ -37,6 +43,8 @@ class Event extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('thumbnails')->singleFile();
+        // Add this new collection for the gallery
+        $this->addMediaCollection('gallery');
     }
 
     protected static function booted()

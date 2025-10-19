@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // ✅ TAMBAHKAN ALIAS ANDA DI SINI
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\IsAdmin::class,
+        ]);
         // Nonaktifkan CSRF khusus route Midtrans
         $middleware->validateCsrfTokens(except: [
             'midtrans/notification',
